@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #chat{
+        align-content: center;
+        width: 600px;
+        height: 600px;
+        border: 1px;
+    }
+    #textBar{
+        text-align-last: center;
+        width: 50px;
+        height: 30px;
+    }
+    </style>
+</head>
+<body>
+    <div id="chat" >
+        <ul id="currentInbox"></ul>
+        <div id="textBar">
+            <input type="text" id="message" placeholder="Write Message" />
+            <button onclick="send()">_Send_</button>
+        </div>
+    </div>
+</body>
+<script>
+    // list()
+    function send(){
+        const activeUserName=window.location.hash;
+        let inbox=[];
+        let previusInbox=localStorage.getItem("inbox");
+        if(previusInbox != null){
+            inbox=JSON.parse(previusInbox)
+        }
+        // console.log(inbox);
+        inbox.push({
+            messages: document.getElementById("message").value,
+            name : activeUserName,
+
+        })
+        localStorage.setItem("inbox",JSON.stringify(inbox))
+        document.getElementById("message").value=""
+        list();
+       
+    }
+
+    setInterval(function(){
+        list();
+    },1000)
+    function list(){
+        var allMessages = localStorage.getItem("inbox");
+        let liData ="";
+        if(allMessages != null){
+            allMessages=JSON.parse(allMessages)
+            allMessages.map(function(message){
+                //  console.log(message);
+                // console.log(message.messages);
+        liData+= "<li>"+message.name + ": " +message.messages+"</li>";
+            })
+         document.getElementById("currentInbox").innerHTML = liData ;
+        }
+    }
+
+</script>
+</html>

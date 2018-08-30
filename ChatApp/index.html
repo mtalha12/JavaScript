@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #Main-Div{
+        width: 200px;
+        box-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div id="Main-Div">
+        <p>Your Name</p>
+        <input type="text" id="name" name="name" placeholder="Name" />
+        <p>Your Password</p>
+        <input type="password" id="password" name="password"  placeholder="Password"/>
+        <button onclick="SignIn()">_SignIn_</button>
+    </div>
+</body>
+<script>
+   
+    // // previusUsers.some(function(check){
+    // //     previusUsers in null;
+    // //     previusUsers.push(users);
+    // // })
+        // // previusUsers("previusUsers" in null);
+
+
+
+
+    // // users.push(users);
+    function SignIn(){
+
+        var users =[];
+        let previusUsers=localStorage.getItem("users");
+        if(previusUsers != null){
+            users=JSON.parse(previusUsers);        
+        }
+        const name1=document.getElementById('name').value;
+
+        users.push({
+            name: name1,
+            password:document.getElementById('password').value,
+        })
+        localStorage.setItem("users",JSON.stringify(users));
+        window.location.assign("chat.html#"+name1);
+    }
+
+ </script>
+ </html>
